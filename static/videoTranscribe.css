@@ -1,0 +1,136 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #F5FCF2;
+  color: #75897E;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: #9BB0A4;
+  color: #F5FCF2;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.sidebar h2 {
+  margin-bottom: 30px;
+  font-size: 1.4em;
+  color: #F5FCF2;
+}
+
+.sidebar nav a {
+  display: block;
+  color: #F5FCF2;
+  text-decoration: none;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+  background-color: #8BA296;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+h1 {
+  margin-bottom: 15px;
+}
+
+form {
+  margin-bottom: 25px;
+  max-width: 600px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+form input[type="url"],
+form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+form button {
+  padding: 10px 20px;
+  background-color: #9BB0A4;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #7d9889;
+}
+
+.result-box,
+.answer-box {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.placeholder {
+  color: #999;
+}
+
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.video-column,
+.qa-column {
+  flex: 1;
+  min-width: 300px;
+  max-width: 48%;
+}
+
+.heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.heading-row button {
+  padding: 6px 12px;
+  background-color: #9BB0A4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.heading-row button:hover {
+  background-color: #7d9889;
+}
+
+.heading-row button i {
+  font-size: 1.1em;
+  color: white;
+}

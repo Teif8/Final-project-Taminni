@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PDF & Voice Note Analysis</title>
+  <link rel="stylesheet" href="/static/main.css" />
+  <link rel="stylesheet" href="/static/features.css" />
+  <link rel="stylesheet" href="/static/pdfvoice.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .file-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .file-name {
+      display: block;
+      font-style: italic;
+      font-size: 0.9em;
+      color: #666;
+      margin-left: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <img src="/static/images/WN2.png" alt="Health Assistant Logo" class="sidebar-logo" />
+      <nav>
+        <a href="/index">Home</a>
+        <a href="/aiBot">AI Bot</a>
+        <a href="/imageClassification">Image Classification</a>
+        <a href="/videoTranscribe">Video Transcription Q&A</a>
+        <a href="/pdfVoice" class="active">PDF & Voice</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+      <div class="disclaimer">
+        ⚠️ Disclaimer: This assistant does not provide medical diagnoses. Always consult a healthcare professional.
+      </div>
+      <div class="header-with-button">
+        <h1 style="font-family: Georgia, serif;  font-size: 35px">PDF & Voice Note Analysis</h1>
+        <a href="" class="emergency-button">Emergency</a>
+      </div>
+      <p>Choose the type of file you want to upload and analyze below.</p>
+
+      <!-- Toggle Tabs -->
+      <div class="toggle-tabs">
+        <button class="tab-btn active" data-target="pdf-tab">Upload PDF</button>
+        <button class="tab-btn" data-target="voice-tab">Upload Voice Note</button>
+      </div>
+
+      <!-- === PDF Upload Section === -->
+      <div id="pdf-tab" class="upload-tab active">
+        <div class="flex-container">
+          <div class="left-panel">
+            <h2>Upload a Medical PDF</h2>
+            <form class="upload-form">
+              <input type="file" id="pdf-file" accept=".pdf" hidden required />
+              <div class="file-row">
+                <label for="pdf-file" class="file-label">Choose PDF File</label>
+                <button type="submit">Analyze PDF</button>
+              </div>
+              <span id="pdf-name" class="file-name">No file chosen</span>
+            </form>
+          </div>
+        </div>
+
+        <div class="flex-row">
+          <!-- PDF Summary -->
+          <div class="result-box">
+            <div class="heading-row">
+              <h3>PDF Summary:</h3>
+              <button onclick="readText('pdf-summary')">
+                <i class="fa-solid fa-volume-high"></i>
+              </button>
+            </div>
+            <p id="pdf-summary" class="placeholder">No PDF uploaded yet.</p>
+          </div>
+
+          <!-- PDF Advice -->
+          <div class="result-box">
+            <div class="heading-row">
+              <h3>Recommendations:</h3>
+              <button onclick="readText('pdf-advice')">
+                <i class="fa-solid fa-volume-high"></i>
+              </button>
+            </div>
+            <p id="pdf-advice" class="placeholder">No advice yet. Upload a PDF to receive suggestions.</p>
+          </div>
+        </div>
+      </div> <!-- End PDF tab -->
+
+      <!-- === Voice Upload Section === -->
+      <div id="voice-tab" class="upload-tab">
+        <div class="upload-form-block">
+          <h2> Upload a Voice Note</h2>
+          <form class="upload-form">
+            <input type="file" id="voice-file" accept="audio/*" hidden required />
+            <div class="file-row">
+              <label for="voice-file" class="file-label">Choose Audio File</label>
+              <button type="submit">Transcribe & Analyze</button>
+            </div>
+            <span id="voice-name" class="file-name">No file chosen</span>
+          </form>
+        </div>
+
+        <div class="flex-row">
+          <!-- Voice Summary -->
+          <div class="result-box">
+            <div class="heading-row">
+              <h3>Voice Note Summary:</h3>
+              <button onclick="readText('voice-summary')">
+                <i class="fa-solid fa-volume-high"></i>
+              </button>
+            </div>
+            <p id="voice-summary" class="placeholder">No audio uploaded yet.</p>
+          </div>
+
+          <!-- Voice Advice -->
+          <div class="result-box">
+            <div class="heading-row">
+              <h3>Recommendations:</h3>
+              <button onclick="readText('voice-advice')">
+                <i class="fa-solid fa-volume-high"></i>
+              </button>
+            </div>
+            <p id="voice-advice" class="placeholder">No advice yet. Upload a voice note to receive suggestions.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Tab toggle
+    const tabs = document.querySelectorAll(".tab-btn");
+    const tabContents = document.querySelectorAll(".upload-tab");
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(btn => btn.classList.remove("active"));
+        tabContents.forEach(tc => tc.classList.remove("active"));
+        tab.classList.add("active");
+        document.getElementById(tab.dataset.target).classList.add("active");
+      });
+    });
+
+    // File name display
+    const pdfInput = document.getElementById("pdf-file");
+    const pdfName = document.getElementById("pdf-name");
+    pdfInput.addEventListener("change", () => {
+      pdfName.textContent = pdfInput.files.length > 0 ? pdfInput.files[0].name : "No file chosen";
+    });
+
+    const voiceInput = document.getElementById("voice-file");
+    const voiceName = document.getElementById("voice-name");
+    voiceInput.addEventListener("change", () => {
+      voiceName.textContent = voiceInput.files.length > 0 ? voiceInput.files[0].name : "No file chosen";
+    });
+
+    // PDF submission
+    document.querySelector("#pdf-tab .upload-form").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("pdf_file", pdfInput.files[0]);
+
+      document.getElementById("pdf-summary").textContent = "⏳ Summarizing PDF...";
+      document.getElementById("pdf-advice").textContent = "⏳ Generating advice...";
+
+      const res = await fetch("/analyze-pdf", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await res.json();
+      document.getElementById("pdf-summary").textContent = data.summary || "❌ Failed to summarize.";
+      document.getElementById("pdf-advice").textContent = data.advice || "❌ No advice generated.";
+    });
+
+    // Voice submission
+    document.querySelector("#voice-tab .upload-form").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("audio_file", voiceInput.files[0]);
+
+      document.getElementById("voice-summary").textContent = "⏳ Transcribing audio...";
+      document.getElementById("voice-advice").textContent = "⏳ Generating advice...";
+
+      const res = await fetch("/transcribe-audio", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await res.json();
+      document.getElementById("voice-summary").textContent = data.transcription || "❌ Failed to transcribe.";
+      document.getElementById("voice-advice").textContent = data.advice || "❌ No advice generated.";
+    });
+
+    // Read aloud
+    let currentUtterance = null;
+let currentReadingId = null;
+
+function readText(id) {
+  const element = document.getElementById(id);
+  if (!element) return;
+
+  const text = element.textContent;
+
+  // If the same section is being read again → stop it
+  if (speechSynthesis.speaking && currentReadingId === id) {
+    speechSynthesis.cancel();
+    currentUtterance = null;
+    currentReadingId = null;
+    return;
+  }
+
+  // If something else is speaking → stop it first
+  speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "en-US";
+
+  currentUtterance = utterance;
+  currentReadingId = id;
+
+  speechSynthesis.speak(utterance);
+
+  // Reset state when done
+  utterance.onend = () => {
+    currentUtterance = null;
+    currentReadingId = null;
+  };
+}
+
+  </script>
+</body>
+</html>

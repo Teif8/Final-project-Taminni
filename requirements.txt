@@ -1,0 +1,15 @@
+openai
+openai-whisper
+Pillow
+python-dotenv
+chromadb
+easyocr
+PyMuPDF
+ipywidgets
+langsmith
+numpy
+pandas
+sounddevice
+yt_dlp
+fastapi
+uvicorn

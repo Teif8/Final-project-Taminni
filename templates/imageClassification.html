@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Image Classification</title>
+  <link rel="stylesheet" href="/static/features.css" />
+  <link rel="stylesheet" href="/static/imageClassification.css" />
+  <link rel="stylesheet" href="/static/main.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <img src="/static/images/WN2.png" alt="Health Assistant Logo" class="sidebar-logo" />
+      <nav>
+        <a href="/index">Home</a>
+        <a href="/aiBot">AI Bot</a>
+        <a href="/imageClassification" class="active">Image Classification</a>
+        <a href="/videoTranscribe">Video Transcription Q&A</a>
+        <a href="/pdfVoice">PDF & Voice</a>
+      </nav>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+      <div class="disclaimer">
+        ⚠️ Disclaimer: This assistant does not provide medical diagnoses. Always consult a healthcare professional.
+      </div>
+      <div class="header-with-button">
+        <h1 style="font-family: Georgia, serif;  font-size: 35px">Image Classification</h1>
+        <a href="" class="emergency-button">Emergency</a>
+      </div>
+      <p>Upload a medical image to receive an AI-powered classification and explanation.</p>
+
+      <form class="upload-form" id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="image-file" name="file" accept="image/*" hidden required />
+        <label for="image-file" class="file-label">Choose Image</label>
+        <span id="image-name" class="file-name">No file chosen</span>
+        <button type="submit">Classify Image</button>
+      </form>
+
+      <div class="result-box">
+        <h3>Prediction:</h3>
+        <p id="result-text" class="placeholder">No image uploaded yet.</p>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const imageInput = document.getElementById("image-file");
+    const imageName = document.getElementById("image-name");
+    const uploadForm = document.getElementById("uploadForm");
+    const resultText = document.getElementById("result-text");
+  
+    imageInput.addEventListener("change", () => {
+      imageName.textContent = imageInput.files.length > 0
+        ? imageInput.files[0].name
+        : "No file chosen";
+    });
+  
+    uploadForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+  
+      const formData = new FormData(uploadForm);
+      try {
+        const response = await fetch("/classify-image", {
+          method: "POST",
+          body: formData
+        });
+        const data = await response.json();
+  
+        // ✅ Render formatted HTML response
+        resultText.innerHTML = data.result;
+        resultText.classList.remove("placeholder");
+  
+      } catch (err) {
+        resultText.textContent = "⚠️ Error classifying image.";
+        resultText.classList.add("error");
+      }
+    });
+  </script>
+  
+</body>
+</html>

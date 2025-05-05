@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Video Transcription + Q&A</title>
+  <link rel="stylesheet" href="/static/features.css" />
+  <link rel="stylesheet" href="/static/videoTranscribe.css" />
+  <link rel="stylesheet" href="/static/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <img src="/static/images/WN2.png" alt="Health Assistant Logo" class="sidebar-logo" />
+      <nav>
+        <a href="/index">Home</a>
+        <a href="/aiBot">AI Bot</a>
+        <a href="/imageClassification">Image Classification</a>
+        <a href="/videoTranscribe" class="active">Video Transcription Q&A</a>
+        <a href="/pdfVoice">PDF & Voice</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+      <div class="disclaimer">
+        ⚠️ Disclaimer: This assistant does not provide medical diagnoses. Always consult a healthcare professional.
+      </div>
+      <div class="header-with-button">
+        <h1 style="font-family: Georgia, serif;  font-size: 35px">Video Transcription + Q&A</h1>
+        <a href="" class="emergency-button">Emergency</a>
+      </div>
+      <p>Paste a YouTube video link and ask questions about it after transcription.</p>
+
+      <div class="flex-row">
+        <!-- Left: Transcription -->
+        <div class="video-column">
+          <form class="video-form">
+            <label for="youtube-url">YouTube Video Link:</label>
+            <input type="url" id="youtube-url" name="youtube_url" placeholder="https://www.youtube.com/watch?v=..." required />
+            <button type="submit">Transcribe Video</button>
+          </form>
+
+          <div class="result-box">
+            <div class="heading-row">
+              <h3>Transcript:</h3>
+              <button onclick="readText('transcript-text')">
+                <i class="fa-solid fa-volume-high"></i>
+              </button>
+            </div>
+            <p id="transcript-text" class="placeholder">No transcription yet.</p>
+          </div>
+        </div>
+
+        <!-- Right: Q&A -->
+        <div class="qa-column">
+          <form class="qa-form">
+            <label for="question">Ask a question about the video:</label>
+            <input type="text" id="question" name="question" placeholder="e.g. What are the symptoms mentioned?" required />
+            <button type="submit">Ask</button>
+          </form>
+
+          <div class="answer-box">
+            <div class="heading-row">
+              <h3>Answer:</h3>
+              <button onclick="readText('answer-text')">
+                <i class="fa-solid fa-volume-high"></i>
+              </button>
+            </div>
+            <p id="answer-text" class="placeholder">No question asked yet.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const videoForm = document.querySelector(".video-form");
+    const qaForm = document.querySelector(".qa-form");
+    const transcriptEl = document.getElementById("transcript-text");
+    const answerEl = document.getElementById("answer-text");
+
+    videoForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const url = document.getElementById("youtube-url").value.trim();
+      const formData = new FormData();
+      formData.append("youtube_url", url);
+
+      transcriptEl.textContent = "⏳ Transcribing...";
+      answerEl.textContent = "Awaiting question...";
+
+      const response = await fetch("/transcribe_video", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      transcriptEl.textContent = data.transcript || "Failed to transcribe.";
+    });
+
+    qaForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const questionText = document.getElementById("question").value.trim();
+      const formData = new FormData();
+      formData.append("question", questionText);
+
+      answerEl.textContent = "⏳ Thinking...";
+
+      const response = await fetch("/ask_video_question", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      answerEl.textContent = data.answer || "No answer found.";
+    });
+
+    let currentUtterance = null;
+    function readText(elementId) {
+      const text = document.getElementById(elementId).textContent;
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        currentUtterance = null;
+        return;
+      }
+      currentUtterance = new SpeechSynthesisUtterance(text);
+      currentUtterance.lang = "en-US";
+      window.speechSynthesis.speak(currentUtterance);
+    }
+  </script>
+</body>
+</html>

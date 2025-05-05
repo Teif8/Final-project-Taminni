@@ -1,0 +1,448 @@
+/* ========== Base Styles ========== */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #F5FCF2;
+  color: #75897E;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* ========== Sidebar Styles ========== */
+.sidebar {
+  max-width: 300px;
+  min-width: 300px;
+  background-color: #9BB0A4;
+  color: #F5FCF2;
+  padding: 20px;
+  box-sizing: border-box;
+  font-size: 20px;
+  font-family: Georgia, serif;
+}
+
+
+.sidebar nav a {
+  display: block;
+  color: #F5FCF2;
+  text-decoration: none;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.sidebar nav a:hover {
+  background-color: #657b70;
+}
+
+.sidebar nav a.active {
+  background-color: #657b70;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.sidebar-logo {
+  width: 230px;
+  margin: 0 auto 20px;
+  display: block;
+}
+
+
+/* ========== Main Content Area ========== */
+.content {
+  flex-grow: 1;
+  padding: 30px;
+  overflow-x: hidden;
+}
+
+.tool-section {
+  display: none;
+}
+
+.tool-section.active {
+  display: block;
+}
+
+.intro {
+  margin-bottom: 25px;
+  font-size: 1.1em;
+  color: #75897E;
+}
+
+/* ========== Dashboard Header ========== */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between; /* space between h2 and button */
+  align-items: center;            /* vertically center */
+  margin-bottom: 20px;
+}
+
+.dashboard-header h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.metric-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  padding: 20px;
+  flex: 1;
+  min-width: 280px;
+  max-width: 100%;
+}
+
+.wide-card {
+  flex: 2;
+}
+
+.narrow-card {
+  flex: 1;
+}
+
+.activity-card {
+  flex: 1.5;
+}
+
+.metric-card h3 {
+  margin-bottom: 16px;
+  font-size: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.upload-bars .upload-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.upload-row .bar {
+  flex: 1;
+  height: 10px;
+  background-color: #dbe7df;
+  border-radius: 6px;
+  margin: 0 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-row .bar::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: var(--value);
+  background-color: #9BB0A4;
+  border-radius: 6px;
+  transition: width 0.4s ease;
+}
+
+.count {
+  font-weight: bold;
+  color: #75897E;
+}
+
+.activity-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.activity-list li {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #4d4d4d;
+}
+
+.time {
+  color: #9BB0A4;
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+
+/* ========== Refresh Button ========== */
+#refreshBtn {
+  background-color: #9BB0A4;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#refreshBtn:hover {
+  background-color: #839d90;
+}
+
+/* ========== Profile Section ========== */
+.profile-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.profile-card {
+  width: 700px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 14px;
+  padding: 25px 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.avatar-circle {
+  width: 150px;
+  height: 150px;
+  background-color: #9BB0A4;
+  color: white;
+  font-weight: bold;
+  font-size: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.profile-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile-info h2 {
+  margin: 0 0 12px;
+  color: #75897E;
+}
+
+.profile-info p {
+  margin: 6px 0;
+  font-size: 0.95rem;
+  color: #4e655a;
+}
+
+.profile-info hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 12px 0;
+}
+
+/* ========== Quote Box ========== */
+.quote-box {
+  width: 320px;
+  height: 210px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-style: italic;
+  font-size: 1.5rem;
+  color: #4e655a;
+  text-align: center;
+}
+
+/* ========== Dashboard Row Layout ========== */
+.dashboard-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 30px;
+  align-items: stretch;
+  
+}
+
+.wide-card {
+  flex: 2;
+  min-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.narrow-card {
+  flex: 1;
+  min-width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.activity-card {
+  flex: 1.5;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* ========== Upload Breakdown ========== */
+.upload-bars {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 600px;
+}
+
+.upload-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.upload-row span:first-child {
+  width: 100px;
+  font-weight: bold;
+}
+
+.bar {
+  flex-grow: 1;
+  height: 16px;
+  background-color: #DCE9E2;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bar::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: var(--value);
+  background-color: #9BB0A4;
+  border-radius: 10px 0 0 10px;
+}
+
+.count {
+  font-weight: bold;
+  color: #4e655a;
+}
+
+/* ========== Activity List ========== */
+.activity-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  font-size: 0.9rem;
+}
+
+.activity-list li {
+  margin-bottom: 8px;
+  color: #4e655a;
+}
+
+.activity-list .time {
+  font-weight: bold;
+  color: #9BB0A4;
+}
+
+/* ========== Feature Cards Section ========== */
+.dashboard-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  width: 45%;
+  height: 150px; /* optional: ensures consistent height */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  /* Center content */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+
+.card:hover {
+  background-color: #e8f9e1;
+  transform: translateY(-5px);
+}
+
+.card h3 {
+  color: #75897E;
+  margin-bottom: 5px;
+  font-size: 22px;
+}
+
+.card p {
+  color: #75897E;
+  font-size: 17px;
+}
+
+
+.disclaimer {
+  background-color: #f9e7e9; /* blush pink */
+  color: #800020;            /* burgundy */
+  text-align: center;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: 2px solid #800020;
+}
+
+
+
+
+.header-with-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.emergency-button {
+  background-color: #800020; /* dark burgundy */
+  color: #ffffff; /* white text */
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease;
+  width: 140px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 27px;
+}
+
+.emergency-button:hover {
+  background-color: #d10000;
+}

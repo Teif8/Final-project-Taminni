@@ -1,0 +1,140 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #F5FCF2;
+    color: #75897E;
+  }
+  
+  .container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .sidebar {
+    width: 220px;
+    background-color: #9BB0A4;
+    color: #F5FCF2;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .sidebar h2 {
+    margin-bottom: 30px;
+    font-size: 1.4em;
+    color: #F5FCF2;
+  }
+  
+  .sidebar nav a {
+    display: block;
+    color: #F5FCF2;
+    text-decoration: none;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  .sidebar nav a:hover,
+  .sidebar nav a.active {
+    background-color: #8BA296;
+  }
+  
+  .content {
+    flex-grow: 1;
+    padding: 30px;
+    overflow-y: auto;
+  }
+  
+  h1 {
+    margin-bottom: 15px;
+  }
+  
+  .upload-form {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+  }
+  
+  .upload-form input[type="file"] {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+  
+  .upload-form button {
+    padding: 10px;
+    background-color: #9BB0A4;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .upload-form button:hover {
+    background-color: #7d9889;
+    
+  }
+  
+  .result-box {
+    max-width: 500px;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff; /* White background like your dashboard cards */
+    border: 1px solid #e0e0e0; /* Soft border */
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Soft subtle shadow */
+    color: #444;
+    font-size: 18px;
+    line-height: 1.7;
+    transition: all 0.3s ease;
+  }
+  
+  .result-box strong {
+    color: #3a6d5a; /* Soft green tone for medical headings */
+    font-weight: 600;
+  }
+  
+  
+  
+  .result-box h3 {
+    margin-top: 0;
+    color: #657b70
+
+  }
+  
+  .placeholder {
+    color: #999;
+  }
+  
+
+  /* Styled File Input */
+  .file-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #9BB0A4;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 10px;
+    text-align: center;
+    min-width: 180px; /* optional: keeps width consistent */
+  }
+  
+  
+  .file-label:hover {
+    background-color: #7d9889;
+  }
+  
+  .file-name {
+    margin-left: 10px;
+    font-style: italic;
+    color: #555;
+  }
+  

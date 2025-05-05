@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Health Assistant - Home</title>
+  <link rel="stylesheet" href="/static/main.css" />
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <img src="/static/images/WN2.png" alt="Health Assistant Logo" class="sidebar-logo" />
+      
+    <!-- Sidebar -->
+      <nav>
+        <a href="/index" class="active">Home</a>
+        <a href="/aiBot" >AI Bot</a>
+        <a href="/imageClassification">Image Classification</a>
+        <a href="/videoTranscribe">Video Transcription Q&A</a>
+        <a href="/pdfVoice">PDF & Voice</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <div class="disclaimer">
+        ⚠️ Disclaimer: This assistant does not provide medical diagnoses. Always consult a healthcare professional.
+      </div>
+      <div class="header-with-button">
+        <h1 style="font-family: Georgia, serif;  font-size: 35px">Welcome to Your Health Assistant</h1>
+        <a href="" class="emergency-button">Emergency</a>
+      </div>
+      <p class="intro">
+        Your personal AI-powered support tool to help you understand, analyze, and interact with your medical information.
+      </p>
+
+      <!-- Personal Section -->
+      <h2 style="font-family: Georgia, serif;">Personal Summary</h2>
+      <div class="profile-row">
+        <div class="profile-card personal-card">
+          <div class="avatar-circle">S</div>
+          <div class="profile-info">
+            <h2 style="font-family: Georgia, serif;">Welcome back, Sara</h2>
+            <hr />
+            <p><strong>Age:</strong> 25</p>
+            <p><strong>Sex:</strong> Female</p>
+            <p><strong>Blood Type:</strong> A+</p>
+          </div>
+        </div>
+
+        <div class="quote-box">
+          <h3>💬</h3>
+          <p id="quoteText" style="font-family: Georgia, serif;">"Your health is your greatest wealth."</p>
+        </div>
+      </div>
+
+      <hr />
+
+      <!-- Dashboard Section -->
+      <div class="dashboard-header">
+        <h2 style="font-family: Georgia, serif;">Dashboard Overview</h2>
+        <button id="refreshBtn">🔄 Refresh Stats</button>
+      </div>
+      
+
+      <div class="dashboard-row">
+        <div class="metric-card wide-card">
+          <h3>Total Uploads</h3>
+          <div class="upload-bars">
+            <div class="upload-row">
+              <span>PDFs</span>
+              <div class="bar" style="--value: 80%"></div>
+              <span class="count">8</span>
+            </div>
+            <div class="upload-row">
+              <span>Voice Notes</span>
+              <div class="bar" style="--value: 65%"></div>
+              <span class="count">6</span>
+            </div>
+            <div class="upload-row">
+              <span>Images</span>
+              <div class="bar" style="--value: 45%"></div>
+              <span class="count">4</span>
+            </div>
+            <div class="upload-row">
+              <span>YouTube</span>
+              <div class="bar" style="--value: 30%"></div>
+              <span class="count">3</span>
+            </div>
+          </div>
+        </div>
+      
+        <div class="metric-card narrow-card">
+          <h3>Last Activity</h3>
+          <p id="lastActive">Just now</p>
+        </div>
+      
+        <div class="metric-card activity-card">
+          <h3>Recent Activity</h3>
+          <ul class="activity-list">
+            <li><span class="time">12:05 PM</span> – Transcribed a voice note</li>
+            <li><span class="time">11:42 AM</span> – Uploaded PDF for analysis</li>
+            <li><span class="time">11:10 AM</span> – Asked a question about video</li>
+          </ul>
+        </div>
+      </div>
+      
+
+      <br>
+      <hr />
+
+      <!-- Feature Cards -->
+      <h2 style="font-family: Georgia, serif;">Health Assistant Features</h2>
+      <div class="dashboard-cards">
+        <div class="card" onclick="location.href='aiBot.html'">
+          <h3>AI Chat Assistant</h3>
+          <p>Chat with your health AI and get instant answers.</p>
+        </div>
+
+        <div class="card" onclick="location.href='imageClassification.html'">
+          <h3>Image Classification</h3>
+          <p>Upload medical images and receive intelligent classifications.</p>
+        </div>
+
+        <div class="card" onclick="location.href='videoTranscribe.html'">
+          <h3>Video Transcription + Q&A</h3>
+          <p>Convert videos to text and ask questions based on the content.</p>
+        </div>
+
+        <div class="card" onclick="location.href='pdfVoice.html'">
+          <h3>PDF & Voice Notes Analysis</h3>
+          <p>Upload medical PDFs or voice notes and interact with them using AI.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const refreshBtn = document.getElementById("refreshBtn");
+    const lastActive = document.getElementById("lastActive");
+
+    refreshBtn.addEventListener("click", () => {
+      const now = new Date().toLocaleString();
+      lastActive.textContent = now;
+    });
+
+    const quotes = [
+      "Your health is your greatest wealth.",
+      "Small steps every day lead to big results.",
+      "Rest and self-care are productive too.",
+      "Healing is not linear — be kind to yourself.",
+      "Your body hears everything your mind says.",
+      "Progress, not perfection.",
+      "You are doing better than you think.",
+      "Take care of your body, it’s the only place you have to live.",
+      "Listening to your body is an act of self-respect.",
+      "Stay positive. Your health journey is worth it."
+    ];
+
+    const quoteText = document.getElementById("quoteText");
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    quoteText.textContent = `"${quotes[randomIndex]}"`;
+  </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Chat Assistant</title>
+  <link rel="stylesheet" href="/static/main.css" />
+  <link rel="stylesheet" href="/static/aiBot.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <img src="/static/images/WN2.png" alt="Health Assistant Logo" class="sidebar-logo" />
+      <nav>
+        <a href="/index">Home</a>
+        <a href="/aiBot" class="active">AI Bot</a>
+        <a href="/imageClassification">Image Classification</a>
+        <a href="/videoTranscribe">Video Transcription Q&A</a>
+        <a href="/pdfVoice">PDF & Voice</a>
+      </nav>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+      <div class="disclaimer">
+        ⚠️ Disclaimer: This assistant does not provide medical diagnoses. Always consult a healthcare professional.
+      </div>
+      <div class="header-with-button">
+        <h1 style="font-family: Georgia, serif;  font-size: 35px">AI Chat Assistant</h1>
+        <a href="" class="emergency-button">Emergency</a>
+      </div>
+      <p>Ask health-related questions and receive responses from your AI assistant.</p>
+
+      <div class="chat-box">
+        <div id="chat-log" class="chat-log">
+          <div class="chat-bubble bot">Hello! I'm your health assistant. How can I help you today?</div>
+        </div>
+
+        <form id="chat-form" class="chat-form">
+          <input type="text" id="user-input" placeholder="Type your health question here..." required />
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script>
+      const form = document.getElementById('chat-form');
+      const input = document.getElementById('user-input');
+      const chatLog = document.getElementById('chat-log');
+    
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const userMsg = input.value.trim();
+        if (!userMsg) return;
+    
+        const userBubble = document.createElement('div');
+        userBubble.className = 'chat-bubble user';
+        userBubble.textContent = userMsg;
+        chatLog.appendChild(userBubble);
+        chatLog.scrollTop = chatLog.scrollHeight;
+    
+        input.value = '';
+    
+        // Send to backend
+        try {
+          const res = await fetch('/ask', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: userMsg })
+          });
+    
+          const data = await res.json();
+          const botBubble = document.createElement('div');
+          botBubble.className = 'chat-bubble bot';
+          botBubble.textContent = data.response || "Sorry, I couldn't understand that.";
+          chatLog.appendChild(botBubble);
+          chatLog.scrollTop = chatLog.scrollHeight;
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      });
+    </script>
+</body>
+</html>
